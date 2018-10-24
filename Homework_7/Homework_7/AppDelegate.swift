@@ -13,7 +13,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    var applicationStateDict = [String : Int]()
+    enum State{
+        case inactive
+        case active
+        case background
+    }
+    var applicationState: [State] = []
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -23,13 +28,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         
         UIApplication.shared.applicationIconBadgeNumber = 3
-        applicationStateDict["WillResignActive"] = UIApplication.shared.applicationIconBadgeNumber
+        applicationState.append(.inactive)
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         
         UIApplication.shared.applicationIconBadgeNumber = 10
-        applicationStateDict["DidEnterBackground"] = UIApplication.shared.applicationIconBadgeNumber
+        applicationState.append(.background)
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -39,12 +44,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         
         UIApplication.shared.applicationIconBadgeNumber = 0
-        applicationStateDict["DidBecomeActive"] = UIApplication.shared.applicationIconBadgeNumber
+        applicationState.append(.active)
         
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        print(applicationStateDict)
+        applicationState.forEach{
+            print("State was changed to \($0)")
+        }
     }
 
 
