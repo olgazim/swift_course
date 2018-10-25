@@ -14,7 +14,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var colorChange: UIButton!
     
     var countOfTaps: Int!
-    var colors: [UIColor]!
+    var textColors: [UIColor]!
+    var backgroundColors: [UIColor]!
     
     override func awakeFromNib() {
         print("awakeFromNib")
@@ -25,14 +26,18 @@ class ViewController: UIViewController {
         print("viewDidLoad")
         textLabel.text = "Hello there)"
         countOfTaps = 0
-        colors = [.red, .blue, .yellow, .gray, .green, .white]
+        textColors = [.red, .blue, .yellow, .black, .green]
+        backgroundColors = [.orange, .white, .gray]
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("viewWillAppea")
-        let color = colors.randomElement()
-        textLabel.textColor = color
+        let textColor = textColors.randomElement()
+        textLabel.textColor = textColor
+        
+        let backgroundColor = backgroundColors.randomElement()
+        view.backgroundColor = backgroundColor
     }
     
     override func viewWillLayoutSubviews() {
